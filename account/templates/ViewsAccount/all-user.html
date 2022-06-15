@@ -1,0 +1,82 @@
+{% extends 'baseAdmin.html' %}
+{% load static %}
+{% load jalali_tags %}
+
+
+{% block title %}
+کاربران
+{% endblock %}
+
+{% block body %}
+    <div class="main-container" id="container">
+        <div class="overlay"></div>
+        <div class="search-overlay"></div>
+        {% include 'ViewsAccount/sidebar.html' %}
+        <div id="content" class="main-content">
+            <div class="layout-px-spacing">
+                <div class="row layout-top-spacing">
+                        <div class="col-lg-12 mb-4">
+                            <div class="statbox widget box box-shadow">
+                                <div class="widget-content widget-content-area">
+                                    <div class="table-responsive mb-4">
+                                        <div id="individual-col-search_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4"><div class="row"><div class="col-sm-12 col-md-6"><div class="dataTables_length" id="individual-col-search_length"></div></div><div class="col-sm-12 col-md-6"><div id="individual-col-search_filter" class="dataTables_filter"><label></label></div></div></div><div class="row"><div class="col-sm-12"><table id="individual-col-search" class="table table-hover dataTable" role="grid" aria-describedby="individual-col-search_info">
+                                            <thead>
+                                                <tr role="row"><th class="text-center sorting_asc" tabindex="0" aria-controls="individual-col-search" rowspan="1" colspan="1" aria-sort="ascending" aria-label="#: activate to sort column descending" style="width: 153.297px;">id</th><th class="sorting" tabindex="0" aria-controls="individual-col-search" rowspan="1" colspan="1" aria-label="نام: activate to sort column ascending" style="width: 153.297px;">نام کاربری</th><th class="sorting" tabindex="0" aria-controls="individual-col-search" rowspan="1" colspan="1" aria-label=" موقعیت : activate to sort column ascending" style="width: 155.375px;">ایمیل</th><th class="sorting" tabindex="0" aria-controls="individual-col-search" rowspan="1" colspan="1" aria-label=" دفتر : activate to sort column ascending" style="width: 153.297px;"> نام و نام خانوادگی </th><th class="sorting" tabindex="0" aria-controls="individual-col-search" rowspan="1" colspan="1" aria-label="سن: activate to sort column ascending" style="width: 153.297px;">وضعیت</th><th class="sorting" tabindex="0" aria-controls="individual-col-search" rowspan="1" colspan="1" aria-label=" تاریخ شروع : activate to sort column ascending" style="width: 156.375px;"> تاریخ عضویت </th><th class="sorting" tabindex="0" aria-controls="individual-col-search" rowspan="1" colspan="1" aria-label=" حقوق : activate to sort column ascending" style="width: 153.719px;">تغییر</th></tr>
+                                            </thead>
+                                                {% for p in users %}
+                                                    <tr role="row">
+                                                        <td class="text-center sorting_1">{{ p.id }}</td>
+                                                        <td>{{ p.username }}</td>
+                                                        <td>{{ p.email }}</td>
+                                                        <td>
+                                                            {% if p.first_name and p.last_name %}
+                                                                {{ p.first_name }} {{ p.last_name }}
+                                                            {% else %}
+                                                                <p class="text-danger">وجود ندارد</p>
+                                                            {% endif %}
+                                                        </td>
+                                                        <td>
+                                                            {% if p.is_author %}
+                                                                <p class="text-warning">نویسنده</p>
+                                                            {% elif p.is_superuser %}
+                                                                <p class="text-success">مدیر</p>
+                                                            {% else %}
+                                                                <p class="text-primary">کاربر</p>
+                                                            
+                                                            {% endif %}
+                                                        </td>
+                                                        <td>{{ p.date_joined }}</td>
+                                                        <td>
+                                                            <ul class="row">
+                                                                {% if request.user.is_superuser %}
+                                                                    <a class="text-primary" href="{% url 'account:users-update' p.id %}"><li class="fas fa-edit mx-2"></li></a>
+                                                                    <a class="text-danger" href="{% url 'account:delete-user' p.id %}"><li class="fas fa-trash mx-2"></li></a>
+                                                                {% endif %}
+                                                            </ul>
+                                                        </td>
+                                                    </tr>
+                                                {% endfor %}
+                                            </tbody>
+                                            </table></div></div><div class="row"><div class="col-sm-12 col-md-5"><div class="dataTables_info" id="individual-col-search_info" role="status" aria-live="polite"></div></div><div class="col-sm-12 col-md-7"><div class="dataTables_paginate paging_simple_numbers" id="individual-col-search_paginate"><ul class="pagination">
+                                            {% if users.has_previous %}
+                                                <li class="paginate_button page-item previous" id="individual-col-search_previous"><a href="?page={{ users.prevous_page_number }}" aria-controls="individual-col-search" data-dt-idx="0" tabindex="0" class="page-link"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a></li>
+                                            {% endif %}
+                                            {% for page in users.paginator.page_range %}
+                                                {% if page == users.number %}
+                                                    <li class="paginate_button page-item active"><a href="?page={{ page }}" aria-controls="individual-col-search" data-dt-idx="1" tabindex="0" class="page-link">{{ page }}</a></li>
+                                                {% else %}
+                                                    <li class="paginate_button page-item"><a href="?page={{ page }}" aria-controls="individual-col-search" data-dt-idx="1" tabindex="0" class="page-link">{{ page }}</a></li>
+                                                {% endif %}
+                                            {% endfor %}
+                                            {% if users.has_next %}
+                                                <li class="paginate_button page-item next" id="individual-col-search_next"><a href="?page={{ users.next_page_number }}" aria-controls="individual-col-search" data-dt-idx="5" tabindex="0" class="page-link"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg></a></li></ul></div></div></div></div>
+                                            {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,91 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'logo.png' %}">
+    <link href="{% static 'assets/css/loader.css' %}" rel="stylesheet" type="text/css">
+    <script src="{% static 'assets/js/loader.js' %}"></script>
+    <link href="../../../../css?family=Nunito:400,600,700" rel="stylesheet">
+    <link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'assets/css/plugins.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'assets/css/authentication/form-2.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'assets/css/forms/theme-checkbox-radio.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'plugins/apex/apexcharts.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'assets/css/dashboard/dash_1.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'plugins/table/datatable/dt-global_style.css' %}" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="{% static 'assets/css/users/account-setting.css' %}">
+
+    <link rel="stylesheet" href="{% static 'css\vendor\font-awesome.css' %}">
+    <script src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/fontawesome.min.css" integrity="sha512-xX2rYBFJSj86W54Fyv1de80DWBq7zYLn2z0I9bIhQG+rxIF6XVJUpdGnsNHWRa6AvP89vtFupEPDP8eZAtu9qA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" crossorigin="anonymous"></script>
+
+</head>
+<body>
+    </div></div></div>
+    <div class="header-container fixed-top">
+        <header class="header navbar navbar-expand-sm d-flex justify-content-center">
+            <ul class="navbar-item theme-brand flex-row text-center">
+                <li class="nav-item theme-text">
+                    <a href="{% url 'main:home' %}" class="nav-link">
+                        <img src="{% static 'bannerLaplace.png' %}" alt="">
+                        <img class="light-logo" style="width: 40px" src="{% static 'logo.png' %}" alt="Logo Images">
+                    </a>
+                </li>
+            </ul>
+        </header>
+    </div>
+
+    <div class="sub-header-container">
+        <header class="header navbar navbar-expand-sm">
+            <a href="javascript:void(0);" class="sidebarCollapse" data-placement="bottom"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></a>
+            <ul class="navbar-nav flex-row">
+                <li>
+                    <div class="page-header">
+                        <nav class="breadcrumb-one" aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="javascript:void(0);">داشبورد</a></li>
+                                {% if request.resolver_match.url_name == 'create' %}
+                                    <li class="breadcrumb-item active" aria-current="page"><span>ایجاد مقاله</span></li>
+                                {% elif request.resolver_match.url_name == 'profile-update' %}
+                                    <li class="breadcrumb-item active" aria-current="page"><span>ویرایش اطلاعات کاربر</span></li>
+                                {% elif request.resolver_match.url_name == 'change-password' %}
+                                    <li class="breadcrumb-item active" aria-current="page"><span>تغییر رمز عبور</span></li>
+                                {% elif request.resolver_match.url_name == 'post-update' %}
+                                    <li class="breadcrumb-item active" aria-current="page"><span>تغییر پست ایجاد شده</span></li>
+                                {% endif %}
+                            </ol>
+                        </nav>
+                    </div>
+                </li>
+            </ul>
+            
+        </header>
+    </div>
+
+    {% block body %}
+    {% endblock %}
+
+
+    <script src="{% static 'assets/js/libs/jquery-3.1.1.min.js' %}"></script>
+    <script src="{% static 'bootstrap/js/popper.min.js' %}"></script>
+    <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'plugins/perfect-scrollbar/perfect-scrollbar.min.js' %}"></script>
+    <script src="{% static 'assets/js/app.js' %}"></script>
+    <script>
+        $(document).ready(function() {
+            App.init();
+        });
+    </script>
+    <script src="{% static 'assets/js/custom.js' %}"></script>
+    <script src="{% static 'plugins/apex/apexcharts.min.js' %}"></script>
+    <script src="{% static 'assets/js/dashboard/dash_1.js' %}"></script>
+    <script type="text/javascript" src="{% static 'ckeditor/ckeditor-init.js' %}"></script>
+    <script type="text/javascript" src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>
+</body>
+</html>

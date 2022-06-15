@@ -1,0 +1,103 @@
+﻿{% extends 'baseMain.html' %}
+{% load static %}
+
+{% block title %}
+نتایج
+{% endblock %}
+
+
+{% block body %}
+
+<div id="preloader">
+	</div>
+    <div class="main-wrapper">
+        <h1 class="d-none">لیست مقالات </h1>
+        <div class="axil-post-list-area axil-section-gap bg-color-white mb-5">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 col-xl-8">
+                        {% for p in posts %}
+                        <div class="content-block post-list-view mt--30">
+                            <div class="post-thumbnail">
+                                <a href="{{ p.absolute_url_post }}">
+                                    <img src="{{ p.intro_image.url }}" alt="Post Images">
+                                </a>
+                            </div>
+                            <div class="post-content">
+                                <h4 class="title"><a href="{{ p.absolute_url_post }}">{{ p.title }}</a></h4>
+                                <div class="post-meta-wrapper">
+                                    <div class="post-meta">
+                                        <div class="content">
+                                            <h6 class="post-author-name">
+                                                <a class="hover-flip-item-wrapper" href="{{ p.absolut_url_author }}">
+                                                    <span class="hover-flip-item">
+                                                        {% if p.author.get_full_name %}
+                                                            {{ p.author.get_full_name }}
+                                                        {% else %}
+                                                            {{ p.author }}
+                                                        {% endif %}
+                                                    </span>
+                                                </a>
+                                            </h6>
+                                            <ul class="post-meta-list">
+                                                <li>{{ p.jcreated }}</li>
+                                                <li>{{ p.readtime }} دقیقه زمان برای مطالعه</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                        <div class="social-share-block mt-5">
+                            <ul class="d-flex justify-content-center social-icon icon-rounded-transparent md-size">
+                                {% if posts.has_previous %}
+                                    <li><a href="?page={{ posts.previous_page_number }}"><i class="fas fa-angle-right"></i></a></li>
+                                {% endif %}
+                                {% for page in posts.paginator.page_range %}
+                                    {% if page == posts.number %}
+                                        <li><a href="?page={{ page }}"><i class="active"></i>{{ page }}</a></li>
+                                    {% else %}
+                                        <li><a href="?page={{ page }}"><i class=""></i>{{ page }}</a></li>
+                                    {% endif %}
+                                {% endfor %}
+                                {% if posts.has_next %}
+                                    <li><a href="?page={{ posts.next_page_number }}"><i class="fas fa-angle-left"></i></a></li>
+                                {% endif %}
+                            </ul>
+                        </div>
+                        
+                    </div>
+
+                    <div class="col-lg-4 col-xl-4 mt_md--40 mt_sm--40">
+                        <div class="sidebar-inner">
+                            <div class="axil-single-widget widget widget_postlist mb--30">
+                                <h5 class="widget-title">بهترین های یک ماه اخیر</h5>
+                                <div class="post-medium-block">
+                                    {% for h in last_month %}
+                                        <div class="content-block post-medium mb--20">
+                                            <div class="post-thumbnail">
+                                                <a href="{{ h.absolute_url_post }}">
+                                                    <img src="{{ h.intro_image.url }}" alt="Post Images">
+                                                </a>
+                                            </div>
+                                            <div class="post-content">
+                                                <h6 class="title"><a href="{{ h.absolute_url_post }}">{{ h.title }}</a></h6>
+                                                <div class="post-meta">
+                                                    <ul class="post-meta-list">
+                                                        <li>{{ h.jcreated }}</li>
+                                                        <li> {{ h.hits.count }} نفر بازدید</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+						</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+		</div>
+{% endblock %}

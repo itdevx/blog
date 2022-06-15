@@ -1,0 +1,6 @@
+
+{% autoescape off %}
+سلام {{ user.username }},
+لطفا برای تایید ثبت نام خود روی لینک کلیک کنید
+http://{{ domain }}{% url 'verify' uidb64=uid token=token %}
+{% endautoescape %}

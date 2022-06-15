@@ -1,0 +1,28 @@
+﻿
+{% extends 'baseMain.html' %}
+{% load static  %}
+
+{% block title %}
+404
+{% endblock %}
+
+{% block body %}
+        <div class="error-area bg_image--4 bg-color-grey">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="inner text-right">
+                            <img src="{% static 'images\others\404.png' %}" alt="Error Images">
+                            <h1 class="title">صفحه مورد نظر یافت نشد!</h1>
+                            <p>با عرض پوزش، اما صفحه مورد نظر شما یافت نشد.</p>
+                            <div class="back-totop-button cerchio d-inline-block">
+                                <a class="axil-button button-rounded " href="{% url 'main:home' %}">
+                                    <span data-text="بازگشت به صفحه اصلی">بازگشت به صفحه اصلی</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+{% endblock %}

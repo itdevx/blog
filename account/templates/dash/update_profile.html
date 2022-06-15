@@ -1,0 +1,189 @@
+
+{% extends 'baseAdmin.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% load jalali_tags %}
+
+
+{% block title %}
+ویرایش اطلاعات
+{% endblock %}
+
+{% block body %}
+    <div class="main-container" id="container">
+        <div class="overlay"></div>
+        <div class="search-overlay"></div>
+        {% include 'ViewsAccount/sidebar.html' %}
+        <div id="content" class="main-content">
+            <div class="layout-px-spacing">
+                <div class="row layout-top-spacing">
+                    <div id="browser_default" class="col-lg-8 layout-spacing col-md-8">
+                        <div class="statbox widget box box-shadow">
+                            <div class="widget-content widget-content-area">
+                                <form method="POST" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    <div class="form-row">
+                                        <div class="col-md-4 mb-4">
+                                            <label for="validationDefault01">نام کوچک</label>
+                                            {{ form.first_name }}
+                                        </div>
+                                        <div class="col-md-4 mb-4">
+                                            <label for="validationDefault02">نام فامیلی</label>
+                                            {{ form.last_name }}
+                                        </div>
+                                        <div class="col-md-4 mb-4">
+                                            <label for="validationDefaultUsername">نام کاربری</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text" id="inputGroupPrepend2">@</span>
+                                                </div>
+                                                {{ form.username }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="col-md-6 mb-4">
+                                            <label for="validationDefault03">درباره شما</label>
+                                            {{ form.info }}
+                                        </div>
+                                        <div class="col-md-3 mb-4">
+                                            <label for="validationDefault04">تخصص</label>
+                                            {{ form.job }}
+                                        </div>
+                                        <div class="col-md-3 mb-4">
+                                            <label for="validationDefault05">ایمیل</label>
+                                            {{ form.email }}
+                                        </div>
+                                        <div class="col-md-3 mb-4">
+                                            <label for="validationDefault04">تخصص</label>
+                                            {{ form.image }}
+                                        </div>
+                                    </div>
+                                    <div class="info">
+                                        <div class="row">
+                                            <div class="col-md-12 mx-auto">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="input-group social-linkedin mb-3">
+                                                            <div class="input-group-prepend mr-3">
+                                                                <span class="input-group-text" id="linkedin"><i class="fab fa-linkedin-in"></i></span>
+                                                            </div>
+                                                            {{ form.linkedin }}
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-6">
+                                                        <div class="input-group social-tweet mb-3">
+                                                            <div class="input-group-prepend mr-3">
+                                                                <span class="input-group-text" id="tweet"><i class="fab fa-twitter"></i></span>
+                                                            </div>
+                                                            {{ form.twitter }}
+                                                        </div>
+                                                    </div>                                                        
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12 mx-auto">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="input-group social-fb mb-3">
+                                                            <div class="input-group-prepend mr-3">
+                                                                <span class="input-group-text" id="fb"><i class="fab fa-instagram"></i></span>
+                                                            </div>
+                                                            {{ form.instagram }}
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="input-group social-github mb-3">
+                                                            <div class="input-group-prepend mr-3">
+                                                                <span class="input-group-text" id="github"><i class="fab fa-github"></i></span>
+                                                            </div>
+                                                            {{ form.github }}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12 mx-auto">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="input-group social-fb mb-3">
+                                                            <div class="input-group-prepend mr-3">
+                                                                <span class="input-group-text" id="fb"><i class="fab fa-telegram"></i></span>
+                                                            </div>
+                                                            {{ form.telegram }}
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="input-group social-github mb-3">
+                                                            <div class="input-group-prepend mr-3">
+                                                                <span class="input-group-text" id="github"><i class="fas fa-link"></i></span>
+                                                            </div>
+                                                            {{ form.website }}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                  <button class="btn btn-secondary mt-3 col-md-3" type="submit">ثبت اطلاعات</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12 layout-spacing">
+                        <div class="widget widget-account-invoice-one">
+                            <div class="widget-content">
+                                <div class="invoice-box">
+                                    <div class="d-flex justify-content-center acc-total-info">
+                                        <img src="{% if request.user.image %}{{ request.user.image.url }}{% else %}{% static 'images/post-hover-image-03.jpg' %}{% endif %}" width="100" style="border-radius: 100px;" alt="">
+                                    </div>
+                                    <div class="inv-detail">
+                                        <div class="info-detail-1">
+                                            <p>نام و نام خانوادگی</p>
+                                            <p>{% if request.user.get_full_name %}{{ request.user.get_full_name }}{% else %}وجود ندارد {% endif %}</p>
+                                        </div>
+                                        <div class="info-detail-2">
+                                            <p>نام کاربری</p>
+                                            <p>{{ request.user.username }}</p>
+                                        </div>
+                                        <div class="info-detail-2">
+                                            <p>ایمیل</p>
+                                            <p>{{ request.user.email }}</p>
+                                        </div>
+                                        <div class="info-detail-2">
+                                            <p>تخصص</p>
+                                            <p>{% if request.user.job %}{{ request.user.job }}{% else %}وجود ندارد{% endif %}</p>
+                                        </div>
+                                        <div class="info-detail-2">
+                                            <p>وضعیت</p>
+                                            <p>
+                                                {% if user.is_author %}
+                                                    نویسنده
+                                                {% elif user.is_superuser %}
+                                                    مالک
+                                                {% else %}
+                                                 کاربر
+                                                {% endif %}
+                                            </p>
+                                        </div>
+                                        <div class="info-detail-2">
+                                            <p>تاریخ عضویت</p>
+                                            <p>{{ request.user.jdatejoin }}</p>
+                                        </div>
+                                        <div class="info-detail-2">
+                                            <p>مدت زمان عضویت</p>
+                                            <p>{{ request.user.sum_date_joined }}</p>
+                                        </div>
+                                        <div class="info-detail-2">
+                                            <p> آخرین ورود</p>
+                                            <p>{{ request.user.last_login|to_jalali:'%m/%d در ساعت %H:%M' }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

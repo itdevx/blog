@@ -1,0 +1,93 @@
+﻿{% extends 'baseAdmin.html' %}
+{% load static %}
+{% load jalali_tags %}
+
+
+{% block title %}
+پروفایل کاربری | {{ request.user.username }}
+{% endblock %}
+
+{% block body %}
+    <div class="main-container" id="container">
+        <div class="overlay"></div>
+        <div class="search-overlay"></div>
+        {% include 'ViewsAccount/sidebar.html' %}
+        <div id="content" class="main-content">
+            <div class="layout-px-spacing">
+                <div class="row layout-top-spacing">
+                    {% if posts %}
+                        <div class="col-lg-12 mb-4">
+                            <div class="statbox widget box box-shadow">
+                                <div class="widget-content widget-content-area">
+                                    <div class="table-responsive mb-4">
+                                        <div id="individual-col-search_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4"><div class="row"><div class="col-sm-12 col-md-6"><div class="dataTables_length" id="individual-col-search_length"></div></div><div class="col-sm-12 col-md-6"><div id="individual-col-search_filter" class="dataTables_filter"><label></label></div></div></div><div class="row"><div class="col-sm-12"><table id="individual-col-search" class="table table-hover dataTable" role="grid" aria-describedby="individual-col-search_info">
+                                            <thead>
+                                                <tr role="row"><th class="text-center sorting_asc" tabindex="0" aria-controls="individual-col-search" rowspan="1" colspan="1" aria-sort="ascending" aria-label="#: activate to sort column descending" style="width: 153.297px;">#</th><th class="sorting" tabindex="0" aria-controls="individual-col-search" rowspan="1" colspan="1" aria-label="نام: activate to sort column ascending" style="width: 153.297px;">نام</th><th class="sorting" tabindex="0" aria-controls="individual-col-search" rowspan="1" colspan="1" aria-label=" موقعیت : activate to sort column ascending" style="width: 155.375px;">عنوان</th><th class="sorting" tabindex="0" aria-controls="individual-col-search" rowspan="1" colspan="1" aria-label=" دفتر : activate to sort column ascending" style="width: 153.297px;"> تصویر </th><th class="sorting" tabindex="0" aria-controls="individual-col-search" rowspan="1" colspan="1" aria-label="سن: activate to sort column ascending" style="width: 153.297px;">دسته بندی</th><th class="sorting" tabindex="0" aria-controls="individual-col-search" rowspan="1" colspan="1" aria-label=" تاریخ شروع : activate to sort column ascending" style="width: 156.375px;"> تاریخ </th><th class="sorting" tabindex="0" aria-controls="individual-col-search" rowspan="1" colspan="1" aria-label=" حقوق : activate to sort column ascending" style="width: 153.719px;">تعداد  نظرات</th><th class="sorting" tabindex="0" aria-controls="individual-col-search" rowspan="1" colspan="1" aria-label=" حقوق : activate to sort column ascending" style="width: 153.719px;">تعداد لایک ها</th><th class="sorting" tabindex="0" aria-controls="individual-col-search" rowspan="1" colspan="1" aria-label="عمل: activate to sort column ascending" style="width: 153.344px;">تعداد بازدیدها</th><th class="sorting" tabindex="0" aria-controls="individual-col-search" rowspan="1" colspan="1" aria-label="عمل: activate to sort column ascending" style="width: 153.344px;">وضعیت</th><th class="sorting" tabindex="0" aria-controls="individual-col-search" rowspan="1" colspan="1" aria-label="عمل: activate to sort column ascending" style="width: 153.344px;">ویرایش</th></tr>
+                                            </thead>
+                                                {% for p in posts %}
+                                                    <tr role="row">
+                                                        <td class="text-center sorting_1">{{ p.id }}</td>
+                                                        <td>{% if p.author.get_full_name %}{{ p.author.get_full_name }}{% else %}{{ p.author }}{% endif %}</td>
+                                                        <td>{{ p.title|truncatewords:5 }}</td>
+                                                        <td><img src="{{ p.intro_image.url }}" width="100" style="border-radius: 10px;" alt=""></td>
+                                                        <td>{{ p.categories.all|join:'-' }}</td>
+                                                        <td>{{ p.jcreated }}</td>
+                                                        <td>{{ p.comments.count }}</td>
+                                                        <td>{{ p.likes.count }}</td>
+                                                        <td>{{ p.hits.count }}</td>
+                                                        <td>
+                                                            {% if p.status == True %}
+                                                                <span class="badge badge-success">منتشر شده</span>
+                                                            {% else %}
+                                                                <span class="badge badge-warning">درحال بررسی</span>
+                                                            {% endif %}
+                                                        </td>
+                                                        <td>
+                                                            <ul class="row">
+                                                                {% if request.user.is_superuser %}
+                                                                    <a class="text-danger" href="{% url 'account:delete' p.id %}"><li class="fas fa-trash mx-2"></li></a>
+                                                                {% endif %}
+                                                                <a class="text-primary" href="{% url 'account:post-update' p.id %}"><li class="fas fa-edit mx-2"></li></a>
+                                                                {% if p.status == True %}
+                                                                    <a class="text-secondary" target="_blank" href="{{ p.absolute_url_post }}"><li class="fas fa-eye mx-2"></li></a>
+                                                                {% endif %}
+                                                            </ul>
+                                                        </td>
+                                                    </tr>
+                                                {% endfor %}
+                                            </tbody>
+                                        </table></div></div><div class="row"><div class="col-sm-12 col-md-5"><div class="dataTables_info" id="individual-col-search_info" role="status" aria-live="polite"></div></div><div class="col-sm-12 col-md-7"><div class="dataTables_paginate paging_simple_numbers" id="individual-col-search_paginate"><ul class="pagination">
+                                            {% if posts.has_previous %}
+                                                <li class="paginate_button page-item previous" id="individual-col-search_previous"><a href="?page={{ posts.prevous_page_number }}" aria-controls="individual-col-search" data-dt-idx="0" tabindex="0" class="page-link"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a></li>
+                                            {% endif %}
+                                            {% for page in posts.paginator.page_range %}
+                                                {% if page == posts.number %}
+                                                    <li class="paginate_button page-item active"><a href="?page={{ page }}" aria-controls="individual-col-search" data-dt-idx="1" tabindex="0" class="page-link">{{ page }}</a></li>
+                                                {% else %}
+                                                    <li class="paginate_button page-item"><a href="?page={{ page }}" aria-controls="individual-col-search" data-dt-idx="1" tabindex="0" class="page-link">{{ page }}</a></li>
+                                                {% endif %}
+                                            {% endfor %}
+                                            {% if posts.has_next %}
+                                                <li class="paginate_button page-item next" id="individual-col-search_next"><a href="?page={{ posts.next_page_number }}" aria-controls="individual-col-search" data-dt-idx="5" tabindex="0" class="page-link"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg></a></li></ul></div></div></div></div>
+                                            {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% else %}
+                    <div class="col-lg-12 mb-4">
+                        <div class="statbox widget box box-shadow">
+                            <div class="widget-content widget-content-area">
+                                <div class="table-responsive mb-4">
+                                    <div id="individual-col-search_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4"><div class="row"><div class="col-sm-12 col-md-6"><div class="dataTables_length" id="individual-col-search_length"></div></div><div class="col-sm-12 col-md-6"><div id="individual-col-search_filter" class="dataTables_filter"><label></label></div></div></div><div class="row"><div class="col-sm-12"><table id="individual-col-search" class="table table-hover dataTable" role="grid" aria-describedby="individual-col-search_info">
+                                        <h6 class="text-warning text-center">شماهیچ مقاله ای ایجاد نکرده اید. جهت ایجاد اولین مقاله از منوی سمت راست روی گزینه ایجاد مقاله جدید کلیک کنید.</h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

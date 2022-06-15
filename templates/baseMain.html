@@ -1,0 +1,363 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'logo.png' %}">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static 'css\vendor\bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css\vendor\font-awesome.css' %}">
+    <link rel="stylesheet" href="{% static 'css\vendor\slick.css' %}">
+    <link rel="stylesheet" href="{% static 'css\vendor\slick-theme.css' %}">
+    <link rel="stylesheet" href="{% static 'css\vendor\base.css' %}">
+    <link rel="stylesheet" href="{% static 'css/plugins/plugins.css' %}">
+    <link rel="stylesheet" href="{% static 'css\style.css' %}">
+    <link rel="stylesheet" href="{% static 'css\star.css' %}">
+</head>
+<body dir="rtl">
+    <header class="header axil-header header-style-3 header-light header-sticky ">
+        <div class="header-top">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-6 col-md-8 col-sm-12">
+                        <div class="header-top-bar d-flex flex-wrap align-items-center justify-content-center justify-content-md-start">
+                            <ul class="header-top-date liststyle d-flex flrx-wrap align-items-center me--20">
+                            <li><a href="#">{{ date }}</a></li>
+                        </ul>
+                        <ul class="header-top-nav liststyle d-flex flrx-wrap align-items-center">
+                            <li><a href="{% url 'main:about' %}">درباره ما</a></li>
+                            <li><a href="{% url 'main:contact' %}">تماس با ما</a></li>
+                        </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-4 col-sm-12">
+                        <ul class="social-share-transparent md-size justify-content-center justify-content-md-end">
+                            <li><a href="https://t.me/reallaplace"><i class="fab fa-telegram-plane"></i></a></li>
+                            <li><a href="https://www.instagram.com/reallaplace.ir/"><i class="fab fa-instagram"></i></a></li>
+                            <li><a href="https://twitter.com/reallaplace"><i class="fab fa-twitter"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="header-middle">
+            <div class="container">
+                <div class="row d-flex justify-content-center align-items-center">
+                    <div class="col-lg-3 col-md-4 col-sm-6">
+                        <div class="logo text-end">
+                            <a href="{% url 'main:home' %}">
+                                <section class="wrapper">
+                                    <img class="light-logo" src="{% static 'bannerLaplace.png' %}" alt="Logo Images">
+                                    <img class="light-logo"  src="{% static 'logo.png' %}" alt="Logo Images">
+                                    <div class="orbit orbit-1"></div>
+                                    <div class="orbit orbit-2"></div>
+                                    <div class="orbit orbit-3"></div>
+                                    <div class="orbit orbit-4"></div>
+                                    <div class="orbit orbit-5"></div>
+                                    <div class="orbit orbit-6"></div>
+                                    <div class="orbit orbit-7"></div>
+                                    <div class="orbit orbit-8"></div>
+                                    <div class="orbit orbit-9"></div>
+                                    <div class="orbit orbit-10"></div>
+                                    <div class="orbit orbit-11"></div>
+                                    <div class="orbit orbit-12"></div>
+                                    <div class="orbit orbit-13"></div>
+                                    <div class="orbit orbit-14"></div>
+                                    <div class="orbit orbit-15"></div>
+                                    <div class="orbit orbit-16"></div>
+                                    <div class="orbit orbit-17"></div>
+                                    <div class="orbit orbit-18"></div>
+                                    <div class="orbit orbit-19"></div>
+                                    <div class="orbit orbit-20"></div>
+                                </section>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="header-bottom">
+            <div class="container">
+                <div class="row justify-content-center justify-content-xl-between align-items-center">
+                    <div class="col-xl-7 d-none d-xl-block">
+                        <div class="mainmenu-wrapper">
+                            <nav class="mainmenu-nav">
+                            <!-- Start Mainmanu Nav -->
+                            <ul class="mainmenu">
+                                <li class="menu-item-has-children"><a href="{% url 'main:home' %}">خانه</a>
+                                </li>
+                                <li class="menu-item-has-children"><a href="#">دسته بندی ها</a>
+                                    <ul class="axil-submenu">
+                                        {% for c in category %}
+                                            <li>
+                                                <a class="hover-flip-item-wrapper" href="/post/{{ c.category_slug }}">
+                                                    <span class="hover-flip-item">
+                                                        {{ c.category_name }}
+                                                    </span>
+                                                </a>
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                </li>
+                                {% if request.user.is_authenticated %}
+                                    <li class="menu-item-has-children"><a href="{% url 'account:home' %}">پروفایل کاربری</a>
+                                        <ul class="axil-submenu">
+                                            <li>
+                                                <a class="hover-flip-item-wrapper" href="{% url 'account:home' %}">
+                                                    <span class="hover-flip-item">
+                                                        داشبورد
+                                                    </span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a class="hover-flip-item-wrapper" href="{% url 'account:create' %}">
+                                                    <span class="hover-flip-item">
+                                                        ایجاد مقاله جدید
+                                                    </span>
+                                                </a>
+                                            </li>
+                                            {% if request.user.is_superuser %}
+                                                <li>
+                                                    <a class="hover-flip-item-wrapper" href="{% url 'account:all-user' %}">
+                                                        <span class="hover-flip-item">
+                                                            کاربران
+                                                        </span>
+                                                    </a>
+                                                </li>
+                                            {% endif %}
+                                            <li>
+                                                <a class="hover-flip-item-wrapper" href="{% url 'account:profile-update' %}">
+                                                    <span class="hover-flip-item">
+                                                        ویرایش اطلاعات
+                                                    </span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a class="hover-flip-item-wrapper" href="{% url 'account:change-password' %}">
+                                                    <span class="hover-flip-item">
+                                                        تغییر رمز عبور
+                                                    </span>
+                                                </a>
+                                            </li>
+                                            <hr>
+                                            <li>
+                                                <a class="hover-flip-item-wrapper" href="{% url 'account:logout' %}">
+                                                    <span class="hover-flip-item">
+                                                        خروج
+                                                    </span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                {% endif %}
+                            </ul>
+                        </nav>
+                        </div>
+                    </div>
+                    <div class="col-xl-5">
+                      <div class="header-search d-flex flex-wrap align-items-center justify-content-center justify-content-md-end">
+                        <form class="header-search-form d-sm-block d-none" method="GET" action="/search/">
+                            <div class="axil-search form-group">
+                                <button type="submit" class="search-button"><i class="fal fa-search"></i></button>
+                                <input type="text" class="form-control" name="query" placeholder="جستجو...">
+                            </div>
+                        </form>
+                        <div class="mobile-search-wrapper d-sm-none d-block">
+                            <button class="search-button-toggle"><i class="fal fa-search"></i></button>
+                            <form class="header-search-form" method="GET" action="/search/">
+                                <div class="axil-search form-group">
+                                    <button type="submit" class="search-button"><i class="fal fa-search"></i></button>
+                                    <input type="text" class="form-control" name="query" placeholder="جستجو...">
+                                </div>
+                            </form>
+                        </div>
+                        <ul class="metabar-block">
+                            {% if request.user.is_authenticated %}
+                                <li><a href="{% url 'account:home' %}"><img src="{% if request.user.image %} {{ user.image.url }}{% else %} {% static 'images/post-hover-image-03.jpg' %}{% endif %}" alt="Author Images"></a></li>
+                            {% endif %}
+                            {% if not request.user.is_authenticated %}
+                                <li class="icon"><a href="{% url 'account:login' %}"><i class="fas fa-sign-in"></i></a></li>
+                            {% endif %}
+                        </ul>
+                        <div class="hamburger-menu d-block d-xl-none">
+                            <div class="hamburger-inner">
+                                <div class="icon"><i class="fal fa-bars"></i></div>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div class="popup-mobilemenu-area">
+        <div class="inner">
+            <div class="mobile-menu-top">
+                <div class="logo">
+                    <a href="{% url 'main:home' %}">
+                        <img class="light-logo" src="{% static 'bannerLaplace.png' %}" alt="Logo Images">
+                    </a>
+                </div>
+                <div class="mobile-close">
+                    <div class="icon">
+                        <i class="fal fa-times"></i>
+                    </div>
+                </div>
+            </div>
+            <ul class="mainmenu">
+                <li class=""><a href="{% url 'main:home' %}">خانه</a>
+                </li>
+                <li class="menu-item-has-children"><a>دسته بندی ها</a>
+                    <ul class="axil-submenu">
+                        {% for c in category %}
+                            <li><a href="/post/{{ c.category_slug }}">{{ c.category_name }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </li>
+                {% if request.user.is_authenticated %}
+                    <li class="menu-item-has-children"><a>حساب کاربری</a>
+                        <ul class="axil-submenu">
+                            <li><a href="{% url 'account:home' %}">داشبورد</a></li>
+                             <li><a href="{% url 'account:create' %}"> ایجاد مقاله جدید</a></li>
+                            {% if request.user.is_superuser %}
+                                <li><a href="{% url 'account:all-user' %}">کاربران</a></li>
+                            {% endif %}
+                             <li><a href="{% url 'account:profile-update' %}"> ویرایش اطلاعات</a></li>
+                             <li><a href="{% url 'account:change-password' %}">تغییر رمز عبور</a></li>
+                            <li><a href="{% url 'account:logout' %}">خروج</a></li>
+
+                        </ul>
+                    </li>
+                {% endif %}
+                <li><a href="{% url 'main:about' %}"> درباره ما</a></li>
+                <li><a href="{% url 'main:contact' %}">تماس با ما</a></li>
+            </ul>
+        </div>
+    </div>
+    <!-- End Mobile Menu Area  -->
+    {% block body %}
+    {% endblock %}
+        <!-- Start Instagram Area  -->
+        <!-- <div class="axil-instagram-area axil-section-gapBottom bg-color-grey">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="section-title text-end">
+                            <h3 class="title">اینستاگرام</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt--30">
+                    <div class="col-lg-12">
+                        <ul class="instagram-post-list">
+                            <li class="single-post">
+                                <a href="#">
+                                    <img src="{% static 'images\small-images\instagram-md-06.jpg' %}" alt="Instagram Images">
+                                    <span class="instagram-button"><i class="fab fa-instagram"></i></span>
+                                </a>
+                            </li>
+                            <li class="single-post">
+                                <a href="#">
+                                    <img src="{% static 'images\small-images\instagram-md-07.jpg' %}" alt="Instagram Images">
+                                    <span class="instagram-button"><i class="fab fa-instagram"></i></span>
+                                </a>
+                            </li>
+                            <li class="single-post">
+                                <a href="#">
+                                    <img src="{% static 'images\small-images\instagram-md-08.jpg' %}" alt="Instagram Images">
+                                    <span class="instagram-button"><i class="fab fa-instagram"></i></span>
+                                </a>
+                            </li>
+                            <li class="single-post">
+                                <a href="#">
+                                    <img src="{% static 'images\small-images\instagram-md-09.jpg' %}" alt="Instagram Images">
+                                    <span class="instagram-button"><i class="fab fa-instagram"></i></span>
+                                </a>
+                            </li>
+                            <li class="single-post">
+                                <a href="#">
+                                    <img src="{% static 'images\small-images\instagram-md-10.jpg' %}" alt="Instagram Images">
+                                    <span class="instagram-button"><i class="fab fa-instagram"></i></span>
+                                </a>
+                            </li>
+                            <li class="single-post">
+                                <a href="#">
+                                    <img src="{% static 'images\small-images\instagram-md-11.jpg' %}" alt="Instagram Images">
+                                    <span class="instagram-button"><i class="fab fa-instagram"></i></span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+        <!-- End Instagram Area  -->
+
+        <div class="axil-footer-area axil-footer-style-1 bg-color-white">
+            <div class="footer-top">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="inner d-flex align-items-center flex-wrap">
+                                <h5 class="follow-title mb--0 mr--20">ما را دنبال کنید</h5>
+                                <ul class="social-icon color-tertiary md-size justify-content-start">
+                                    <li><a href="https://t.me/reallaplace"><i class="fab fa-telegram-plane"></i></a></li>
+                                    <li><a href="https://www.instagram.com/reallaplace.ir/"><i class="fab fa-instagram"></i></a></li>
+                                    <li><a href="https://twitter.com/reallaplace"><i class="fab fa-twitter"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="copyright-area">
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-lg-9 col-md-12">
+                            <div class="copyright-left">
+                                <div class="logo">
+                                    <a class="d-flex" href="{% url 'main:home' %}">
+                                        <img class="light-logo" src="{% static 'bannerLaplace.png' %}" alt="Logo Images">
+                                        <img class="light-logo mx-2" src="{% static 'logo.png' %}" alt="Logo Images">
+                                    </a>
+                                </div>
+                                <ul class="mainmenu justify-content-start">
+                                    <li>
+                                        <a class="hover-flip-item-wrapper" href="{% url 'main:about' %}">
+                                            <span data-text="درباره ما">درباره ما</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="hover-flip-item-wrapper" href="{% url 'main:contact' %}">
+                                            <span data-text="تماس با ما">تماس با ما</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-12">
+                            <div class="copyright-right text-end text-lg-start mt_md--20 mt_sm--20">
+                                <p class="b3">© کپی برداری آزاد میباشد - خوده لاپلاس</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    <script src="{% static 'js\vendor\modernizr.min.js' %}"></script>
+    <script src="{% static 'js\vendor\jquery.js' %}"></script>
+    <script src="{% static 'js\vendor\bootstrap.min.js' %}"></script>
+    <script src="{% static 'js\vendor\slick.min.js' %}"></script>
+    <script src="{% static 'js\vendor\tweenmax.min.js' %}"></script>
+    <script src="{% static 'js\vendor\js.cookie.js' %}"></script>
+    <script src="{% static 'js\vendor\jquery.style.switcher.js' %}"></script>
+    <script src="{% static 'js\main.js' %}"></script>    
+    
+</body>
+</html>

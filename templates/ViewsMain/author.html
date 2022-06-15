@@ -1,0 +1,162 @@
+﻿{% extends 'baseMain.html' %}
+
+{% block title %}
+{% if User.author.get_full_name %}
+    {{ User.author.get_full_name }}
+{% else %}
+    {{ User.author.username }}
+{% endif %}
+{% endblock %}
+
+{% block body %}
+
+<div id="preloader">
+		<span class="loader"></span>
+	</div>
+    <div class="main-wrapper">
+        <div class="axil-author-area axil-author-banner bg-color-grey">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="about-author text-right">
+                            <div class="media">
+                                <div class="thumbnail">
+                                    <a href="#">
+                                        <img style="width: 100px;" src="{{ User.author.image.url }}" alt="Author Images">
+                                    </a>
+                                </div>
+                                <div class="media-body">
+                                    <div class="author-info">
+                                        <h1 class="title">{% if User.author.get_full_name %}{{ User.author.get_full_name }}{% else %}{{ User.author }}{% endif %}<a href="#">
+                                            {{ post.author }}
+                                        </a></h1>
+                                        {% if User.author.job %}
+                                            <span class="b3 subtitle">{{ User.author.job }}</span>
+                                        {% else %}
+                                            <span class="b3 subtitle">تخصصی وجود ندارد</span>
+                                        {% endif %}
+                                    </div>
+                                    {% if User.author.info %}
+                                    <div class="content">
+                                        <p class="b1 description">{{ User.author.info }}</p>
+                                        <ul class="social-share-transparent size-md">
+                                            {% if User.author.linkedin %}
+                                                <li><a target="_blank" href="{{ User.author.linkedin }}"><i class="fab fa-linkedin"></i></a></li>
+                                            {% endif %}
+                                            {% if User.author.twitter %}
+                                                <li><a target="_blank" href="{{ User.author.twitter }}"><i class="fab fa-twitter"></i></a></li>
+                                            {% endif %}
+                                            {% if User.author.instagram %}
+                                                <li><a target="_blank" href="{{ User.author.instagram }}"><i class="fab fa-instagram"></i></a></li>
+                                            {% endif %}
+                                            {% if User.author.github %}
+                                                <li><a target="_blank" href="{{ User.author.github }}"><i class="fab fa-github"></i></a></li>
+                                            {% endif %}
+                                            {% if User.author.telegram %}
+                                                <li><a target="_blank" href="{{ User.author.telegram }}"><i class="fab fa-telegram"></i></a></li>
+                                            {% endif %}
+                                            {% if User.author.website %}
+                                                <li><a target="_blank" href="{{ User.author.website }}"><i class="fab fa-website"></i></a></li>
+                                            {% endif %}
+                                        </ul>
+                                    </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="axil-post-list-area axil-section-gap bg-color-white">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="page-title text-right">
+                            <h2 class="title mb--40">مقالات این نویسنده</h2>
+                        </div>
+                    </div>
+                    <div class="col-lg-8 col-xl-8">
+                        {% for p in post %}
+                            <div class="content-block post-list-view mt--30">
+                                <div class="post-thumbnail">
+                                    <a href="{{ p.absolute_url_post }}">
+                                        <img src="{{ p.intro_image.url }}" alt="Post Images">
+                                    </a>
+                                </div>
+                                <div class="post-content">
+                                    <h4 class="title"><a href="{{ p.absolute_url_post }}">{{ p.title }}</a></h4>
+                                    <div class="post-meta-wrapper">
+                                        <div class="post-meta">
+                                            <div class="content">
+                                                <h6 class="post-author-name">
+                                                    <a class="hover-flip-item-wrapper" href="author.html">
+                                                        <span class="hover-flip-item">
+                                                            {{ p.author.get_full_name }}
+                                                        </span>
+                                                    </a>
+                                                </h6>
+                                                <ul class="post-meta-list">
+                                                    <li>{{ p.jcreated }}</li>
+                                                    <li>{{ p.readtime }} دقیقه زمان برای مطالعه</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    
+                    <div class="col-lg-4 col-xl-4 mt_md--40 mt_sm--40">
+                        <div class="sidebar-inner">
+                            <div class="axil-single-widget widget widget_postlist mb--30">
+                                <h5 class="widget-title">بهترین های یک ماه اخیر</h5>
+                                <div class="post-medium-block">
+                                    {% for p in last_month %}
+                                        <div class="content-block post-medium mb--20">
+                                            <div class="post-thumbnail">
+                                                <a href="{{ p.absolute_url_post }}">
+                                                    <img src="{{ p.intro_image.url }}" alt="Post Images">
+                                                </a>
+                                            </div>
+                                            <div class="post-content">
+                                                <h6 class="title"><a href="{{ p.absolute_url_post }}">{{ p.title }}</a></h6>
+                                                <div class="post-meta">
+                                                    <ul class="post-meta-list">
+                                                        <li>{{ p.jcreated }}</li>
+                                                        <li> {{ p.hits.count }} نفر بازدید</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+						</div>
+                    </div>
+                    <div class="social-share-block mt-5">
+                        <ul class="d-flex justify-content-center social-icon icon-rounded-transparent md-size">
+                            {% if post.has_previous %}
+                                <li><a href="?page={{ post.previous_page_number }}"><i class="fas fa-angle-right"></i></a></li>
+                            {% endif %}
+                            {% for page in post.paginator.page_range %}
+                                {% if page == page_obj.number %}
+                                    <li><a href="?page={{ page }}"><i class="active"></i>{{ page }}</a></li>
+                                {% else %}
+                                    <li><a href="?page={{ page }}"><i class=""></i>{{ page }}</a></li>
+                                {% endif %}
+                            {% endfor %}
+                            {% if post.has_next %}
+                                <li><a href="?page={{ post.next_page_number }}"><i class="fas fa-angle-left"></i></a></li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+	</div>
+{% endblock %}
+
