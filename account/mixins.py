@@ -24,7 +24,6 @@ class FieldsMixins():
         else:
             self.fields = [
                 'title',
-                'slug',
                 'description',
                 'intro_image',
                 'categories',
