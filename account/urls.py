@@ -4,6 +4,7 @@ from account.views import (
     logout_request,
     login_view,
     CreatePostView,
+    CreateCategoryView,
     ProfileUpdate,
     UpdatePostView,
     DeletePostView,
@@ -32,6 +33,8 @@ urlpatterns = [
     path('account/login/', login_view, name='login'),
     
     path('account/create/', CreatePostView.as_view(), name='create'),
+    
+    path('account/create-category/', CreateCategoryView.as_view(), name='create-category'),
 
     path('account/update-post/<int:pk>/', UpdatePostView.as_view(), name='post-update'),
 

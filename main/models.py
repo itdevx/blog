@@ -34,7 +34,7 @@ class IPAdress(models.Model):
 
 class Category(models.Model):
     category_name = models.CharField(max_length=100)
-    category_slug = models.SlugField(max_length=100)
+    category_slug = models.SlugField(max_length=100,  allow_unicode=True, unique=True)
     image = models.ImageField(upload_to='ImageCategory')
 
     def __str__(self):
@@ -52,7 +52,7 @@ def create_slug(title): # new
 
 class Post(models.Model):
     title = models.CharField(max_length=200, verbose_name='عنوان مقاله')
-    slug = models.SlugField(max_length=200, verbose_name='آدرس مقاله')
+    slug = models.SlugField(max_length=200, verbose_name='آدرس مقاله',  allow_unicode=True, unique=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     created = models.DateField(auto_now=True)
     intro_image = models.ImageField(upload_to='ImagePosts', verbose_name='بارگذاری تصویر')

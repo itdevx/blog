@@ -61,7 +61,7 @@ from django.template.loader import render_to_string
 from .tokens import account_activation_token
 from django.core.mail import EmailMessage
 from account.models import User
-from main.models import Post 
+from main.models import Post, Category
 from django.core.paginator import Paginator
 
 
@@ -434,7 +434,11 @@ class CreatePostView(FormValidMixins, FieldsMixins, CreateView):
     model = Post
     success_url = reverse_lazy('account:home')
     template_name = 'dash/create.html'
-
+    
+class CreateCategoryView(FormValidMixins, FieldsMixins, CreateView):
+    model = Category
+    success_url = reverse_lazy('account:home')
+    template_name = 'dash/create-category.html'
 
 
 class UpdatePostView(FieldsMixins, UpdateView):
