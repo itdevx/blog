@@ -24,9 +24,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure--=46%%5l7!8v4cq=t86f-l8b_ou4_e+6&#a961-)zp(8)@as!z'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 # TEMPLATE_DEBUG = DEBUG
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -45,7 +45,7 @@ INSTALLED_APPS = [
     'jalali_date',
     'crispy_forms',
     'ckeditor',
-    'comment'
+    'comment',
 ]
 
 MIDDLEWARE = [

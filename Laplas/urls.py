@@ -26,6 +26,7 @@ urlpatterns = [
     path('laplace-admin-711-13-51/', admin.site.urls),
     path('', include('main.urls')),
     path('', include('account.urls')),
+    
 
     # Email
     path('account/register/', Register.as_view(), name='register'),
