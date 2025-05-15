@@ -23,6 +23,9 @@
                                         <div class="form-group col-md-6">
                                             {{ form.title|as_crispy_field  }}
                                         </div>
+                                        <div class="form-group col-md-6">
+                                            {{ form.slug|as_crispy_field  }}
+                                        </div>
                                         <!-- <div class="form-group col-md-6">
                                             {% if request.user.is_superuser %}
                                                 {{ form.slug|as_crispy_field  }}

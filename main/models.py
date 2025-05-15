@@ -10,7 +10,6 @@ from django.contrib.contenttypes.fields import GenericRelation
 from comment.models import Comment
 # from django.utils.text import slugify
 from django.template.defaultfilters import slugify
-from django_ckeditor_5.fields import CKEditor5Field
 
 
 

@@ -24,6 +24,9 @@
                                             {{ form.category_name|as_crispy_field  }}
                                         </div>
                                         <div class="form-group col-md-6">
+                                            {{ form.category_slug|as_crispy_field  }}
+                                        </div>
+                                        <div class="form-group col-md-6">
                                             <!-- {% if request.user.is_superuser %} -->
                                                 {{ form.image|as_crispy_field  }}
                                             <!-- {% endif %} -->
@@ -31,7 +34,7 @@
                                     </div>
                         
                                     
-                                  <button type="submit" class="btn btn-secondary mt-3 col-md-2">ایجاد مقاله</button>
+                                  <button type="submit" class="btn btn-secondary mt-3 col-md-2">ایجاد دسته بندی</button>
                                 </form>
                             </div>
                         </div>

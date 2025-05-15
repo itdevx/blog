@@ -8,7 +8,7 @@ from django.utils.html import format_html
 def ChangeToFalse(Post,request,queryset):
     return queryset.update(status='F')
 
-@admin.action(description='تنشظیم وضعیت به حالت True')
+@admin.action(description='تنظیم وضعیت به حالت True')
 def ChangeToTrue(Blog,request,queryset):
     return queryset.update(status='T')
 
@@ -19,7 +19,7 @@ class PostAdmin(admin.ModelAdmin):
     def image_format(self,obj):
         return format_html('<img width=50 src={}/>'.format(obj.intro_image.url))
     
-    list_display = ['title','author','created','status','image_format', 'comments']
+    list_display = ['title','author','created','status','image_format']
     list_filter = ['title','author','status']
     list_search = ['title','description','author']
     prepopulated_fields = {
