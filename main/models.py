@@ -8,8 +8,7 @@ from ckeditor.fields import RichTextField
 import readtime
 from django.contrib.contenttypes.fields import GenericRelation
 from comment.models import Comment
-# from django.utils.text import slugify
-from django.template.defaultfilters import slugify
+from django.utils.text import slugify
 
 
 
@@ -38,15 +37,11 @@ class Category(models.Model):
 
     def __str__(self):
         return self.category_name
+    
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.category_name, allow_unicode=True)
+        return super().save(*args, **kwargs)
 
-
-def create_slug(title): # new
-    slug = slugify(title)
-    qs = Post.objects.filter(slug=slug)
-    exists = qs.exists()
-    if exists:
-        slug = "%s-%s" %(slug, qs.first().id)
-    return slug
 
 
 class Post(models.Model):
@@ -91,6 +86,12 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
+    
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.title, allow_unicode=True)
+        return super().save(*args, **kwargs)
+
 
     # def save(self, *args, **kwargs):
     #     if not self.slug:

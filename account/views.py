@@ -434,6 +434,7 @@ class CreatePostView(FormValidMixins, FieldsMixins, CreateView):
     model = Post
     success_url = reverse_lazy('account:home')
     template_name = 'dash/create.html'
+
     
 class CreateCategoryView(FormValidMixins, FieldsMixins, CreateView):
     model = Category
